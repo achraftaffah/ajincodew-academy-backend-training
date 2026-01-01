@@ -11,6 +11,9 @@ import ajincodew.studentapplication.repository.StudentRepository;
 import ajincodew.studentapplication.service.StudentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -52,21 +55,22 @@ public class StudentServiceImpl implements StudentService {
                     studentEntity
             );
         } catch (CannotRetrieveStudentsException e) {
+            log.error("Cannot retrieve student by id {}", id);
             throw new CannotRetrieveStudentsException(e.getMessage());
         }
     }
 
-    public List<GetStudentResource> retrieveAllStudents() {
+    public Page<GetStudentResource> retrieveAllStudents(Pageable pageable) {
         try {
             log.info("Retrieving all students");
-            List<StudentEntity> students = studentRepository.findAll();
+            Page<StudentEntity> students = studentRepository.findAll(pageable);
 
             // Map all StudentEntity objects to GetStudentResource
-            return studentMapper.studentEntityToGetStudentResource(students);
+            return studentMapper.toStudentPage(students);
 
         } catch (Exception e) {
             log.error("Error retrieving students", e);
-            return Collections.emptyList(); // Return an empty list in case of error
+            return new PageImpl<>(Collections.emptyList(), pageable, 0);
         }
     }
 

@@ -5,13 +5,12 @@ import ajincodew.studentapplication.dto.PostStudentResource;
 import ajincodew.studentapplication.entity.StudentEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface StudentMapper {
-    // PostStudentResourceToStudentEntity
-    // PostStudentResource -> StudentEntity
     StudentEntity postStudentToStudentEntity(PostStudentResource postStudentResource);
 
     @Mapping(source = "id", target = "id")
@@ -22,5 +21,7 @@ public interface StudentMapper {
     @Mapping(source = "major.name", target = "major.name")
     GetStudentResource studentEntityToGetStudentResource(StudentEntity studentEntity);
 
-    List<GetStudentResource> studentEntityToGetStudentResource(List<StudentEntity> students);
+    default Page<GetStudentResource> toStudentPage(Page<StudentEntity> students){
+        return students.map(this :: studentEntityToGetStudentResource);
+    }
 }

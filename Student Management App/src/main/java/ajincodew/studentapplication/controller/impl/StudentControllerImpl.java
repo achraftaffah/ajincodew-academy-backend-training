@@ -7,6 +7,8 @@ import ajincodew.studentapplication.entity.StudentEntity;
 import ajincodew.studentapplication.service.StudentService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,8 +27,8 @@ public class StudentControllerImpl implements StudentController {
     }
 
     @Override
-    public List<GetStudentResource> retrieveAllStudents() {
-        return studentService.retrieveAllStudents();
+    public Page<GetStudentResource> retrieveAllStudents(Pageable  pageable) {
+        return studentService.retrieveAllStudents(pageable);
     }
 
     @Override

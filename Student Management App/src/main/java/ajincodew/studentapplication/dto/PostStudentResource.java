@@ -1,5 +1,6 @@
 package ajincodew.studentapplication.dto;
 
+import ajincodew.studentapplication.validator.UniqueEmail;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -20,6 +21,7 @@ public class PostStudentResource {
 
     @Email
     @NotBlank(message = "Email must not be blank")
+    @UniqueEmail
     private String email;
 
     @NotNull

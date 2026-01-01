@@ -5,14 +5,12 @@ import ajincodew.studentapplication.dto.GetStudentResource;
 import ajincodew.studentapplication.dto.PostStudentResource;
 import ajincodew.studentapplication.entity.MajorEntity;
 import ajincodew.studentapplication.entity.StudentEntity;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-12-14T21:23:40+0100",
+    date = "2026-01-01T01:11:16+0100",
     comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.14 (Amazon.com Inc.)"
 )
 @Component
@@ -50,20 +48,6 @@ public class StudentMapperImpl implements StudentMapper {
         getStudentResource.setAge( studentEntity.getAge() );
 
         return getStudentResource;
-    }
-
-    @Override
-    public List<GetStudentResource> studentEntityToGetStudentResource(List<StudentEntity> students) {
-        if ( students == null ) {
-            return null;
-        }
-
-        List<GetStudentResource> list = new ArrayList<GetStudentResource>( students.size() );
-        for ( StudentEntity studentEntity : students ) {
-            list.add( studentEntityToGetStudentResource( studentEntity ) );
-        }
-
-        return list;
     }
 
     protected GetMajorResource majorEntityToGetMajorResource(MajorEntity majorEntity) {
